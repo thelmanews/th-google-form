@@ -2,8 +2,6 @@
 <link rel="import" href="../thelma-core/thelma_core.html">
 <link rel="import" href="../thelma-utils/th-theme.html">
 <link rel="import" href="../core-ajax/core-ajax.html">
-<link rel="import" href="../basic-seamless-iframe/basic-seamless-iframe.html">
-
 
 <polymer-element extends="th-animated" name="th-google-form" attributes="width height src">
   <core-style ref="theme"></core-style>
@@ -17,7 +15,7 @@
         on-core-response="{{parseResponse}}">
       </core-ajax>
 
-    <basic-seamless-iframe id="googleform" style="width: {{width}}px; height: {{height}}px;" src="{{src}}"></basic-seamless-iframe>
+    <iframe src="{{src}}?embedded=true" width="{{width}}" height="{{height}}" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
   </template>
 
