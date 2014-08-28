@@ -1,66 +1,44 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../thelma-core/thelma_core.html">
+<link rel="import" href="../thelma-utils/th-theme.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+<link rel="import" href="../basic-seamless-iframe/basic-seamless-iframe.html">
 
-<!--
-Element providing solution to no problem in particular.
 
-##### Example
+<polymer-element extends="th-animated" name="th-google-form" attributes="width height src">
+  <core-style ref="theme"></core-style>
+  <style>
 
-    <th-google-form></th-google-form>
-
-@element th-google-form
-@blurb Element providing solution to no problem in particular.
-@status alpha
-@homepage http://nishacodes.github.io/th-google-form
--->
-<polymer-element name="th-google-form" attributes="notitle">
-
+  </style>
   <template>
+      <core-ajax id="formRequest"
+        url="http://www.corsproxy.com/docs.google.com/forms/d/18KBVx88jEDb8KP4NjsK4e5g2ieggQ6XlPH5WoJMf_u4/viewform"
+        handleAs="text"  
+        on-core-response="{{parseResponse}}">
+      </core-ajax>
 
-    <link rel="stylesheet" href="th-google-form.css" />
-
-    <content></content>
+    <basic-seamless-iframe id="googleform" style="width: {{width}}px; height: {{height}}px;" src="{{src}}"></basic-seamless-iframe>
 
   </template>
 
   <script>
 
     Polymer('th-google-form', {
-      /**
-       * The `noevent` event is not actually fired from here,
-       * we document it as an example of documenting events.
-       *
-       * @event noevent
-       */
 
-      /**
-       * The `notitle` attribute does not yet have a purpose.
-       *
-       * @attribute notitle
-       * @type string
-       */
-      notitle: '',
+      domReady: function() {
+        var self = this;
 
-      /**
-       * The `aProp` is a property that does something cool.
-       *
-       * @property aProp
-       * @type bool
-       */
-      aProp: false,
+        self.requestUrl = self.src.replace(/(ftp|http|https):\/\//,'http://www.corsproxy.com/');
+        self.$.formRequest.go();
+        console.log(self.requestUrl);
+        
+        
 
-      ready: function() {
       },
-
-      /**
-       * The `task` method does no work at this time.
-       *
-       * @method task
-       * @return {Object} Returns undefined.
-       * @param {String} dummy Serves no purpose today.
-       */
-      task: function(dummy) {
+      parseResponse: function(event, r){
+        console.log(event);
+        console.log(r);
       }
-
     });
 
   </script>
