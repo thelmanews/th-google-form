@@ -30,7 +30,7 @@
 
       domReady: function() {
         var self = this;
-
+        self.fire('th-ready', {msg: 'element ready', element: self});
         self.requestUrl = self.src.replace(/(ftp|http|https):\/\//,'http://www.corsproxy.com/');
         // self.$.formRequest.go();
         // console.log(self.requestUrl);
